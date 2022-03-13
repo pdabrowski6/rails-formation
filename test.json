@@ -1,0 +1,1 @@
+{"name":"Users list","migrations":[{"table":"users","timestamps":true,"columns":[{"name":"email","type":"string","options":[{"name":"null","value":false}]},{"name":"first_name","type":"string","options":[]},{"name":"last_name","type":"string","options":[]}],"indices":[{"table_name":"users","column_names":["email","first_name"],"options":[{"name":"unique","value":true}]}]}]}

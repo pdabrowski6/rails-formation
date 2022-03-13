@@ -1,0 +1,16 @@
+class Create<%= table_name.capitalize %> < ActiveRecord::Migration[7.0]
+  def change
+    create_table :<%= table_name %> do |t|
+  <% columns.each do |column| -%>
+    <%= column %>
+  <% end %>
+  <% if timestamps? -%>
+    t.timestamps
+  <% end -%>
+  end
+
+  <% indices.each do |index| -%>
+  <%= index %>
+  <% end -%>
+end
+end

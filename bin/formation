@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+require 'rails-formation'
+
+command_line_arguments = ARGV.dup
+
+RailsFormation::Cli::Processor.new(command_line_arguments).call

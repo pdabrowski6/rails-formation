@@ -1,0 +1,96 @@
+{
+  "name": "test_template",
+  "rubygems": [
+    {
+      "name": "ffaker",
+      "version": "2.20.0",
+      "groups": ["development", "test"],
+      "install_commands": []
+    },
+    {
+      "name": "rspec-rails",
+      "version": "~> 5.0.0",
+      "groups": ["development", "test"],
+      "install_commands": [
+        "rails generate rspec:install"
+      ]
+    },
+    {
+      "name": "rest-client",
+      "version": "2.1.0"
+    }
+  ],
+  "migrations": [
+    {
+      "table": "users",
+      "timestamps": true,
+      "columns": [
+        {
+          "name": "first_name",
+          "type": "string"
+        },
+        {
+          "name": "last_name",
+          "type": "string"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "options": [
+            { "name": "null", "value": false }
+          ]
+        }
+      ],
+      "indices": [
+        {
+          "column": "email",
+          "options": [
+            { "name": "unique", "value": true }
+          ]
+        }
+      ]
+    },
+    {
+      "table": "articles",
+      "timestamps": true,
+      "columns": [
+        {
+          "name": "title",
+          "type": "string",
+          "options": [
+            { "name": "null", "value": false }
+          ]
+        },
+        {
+          "name": "content",
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "models": [
+    {
+      "name": "User",
+      "columns": [
+        {
+          "name": "first_name",
+          "type": "string",
+          "validations": []
+        },
+        {
+          "name": "last_name",
+          "type": "string",
+          "validations": []
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "validations": [
+            { "name": "presence", "value": true },
+            { "name": "uniqueness", "value": true }
+          ]
+        }
+      ]
+    }
+  ]
+}
