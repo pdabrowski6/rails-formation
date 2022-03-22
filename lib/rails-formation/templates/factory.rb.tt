@@ -1,0 +1,7 @@
+FactoryBot.define do
+  factory :<%= factory_name %> do
+<% columns.each do |column| -%>
+    <%= column %>
+<% end -%>
+  end
+end

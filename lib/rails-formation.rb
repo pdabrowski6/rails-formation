@@ -2,6 +2,7 @@ require 'thor'
 require 'rails-formation/formatters/migration'
 require 'rails-formation/formatters/rubygem'
 require 'rails-formation/formatters/model'
+require 'rails-formation/formatters/factory'
 require 'rails-formation/cli/file_adapter'
 require 'rails-formation/cli/api_adapter'
 require 'rails-formation/cli/processor'
@@ -11,6 +12,7 @@ module RailsFormation
     def apply(template)
       # bundle_and_install_gems(template.fetch('rubygems', []))
       create_and_run_migrations(template.fetch('migrations', []))
+      create_factories(template.fetch('factories', []))
       # create_and_build_models(template.fetch('models', []))
     end
 
@@ -39,6 +41,14 @@ module RailsFormation
 
         system('./bin/rails db:create')
         system('./bin/rails db:migrate')
+      end
+
+      def create_factories(factories)
+        factories.each do |config|
+          factory_name = "#{config.fetch('name')}.rb"
+          factory_path = File.join(Dir.pwd, 'spec', 'factories', factory_name)
+          ::RailsFormation::Formatters::Factory.new([config, factory_path]).invoke_all
+        end
       end
 
       def create_and_build_models(models)

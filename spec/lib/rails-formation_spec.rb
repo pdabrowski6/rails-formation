@@ -2,6 +2,31 @@ require 'spec_helper'
 
 RSpec.describe RailsFormation do
   describe '.apply' do
+    context 'factories' do
+      let(:config) do
+        {
+          'factories' => [
+            { 'name' => 'user', 'fields' => [] }
+          ]
+        }
+      end
+
+      it 'applies factories' do
+        factory_path = File.join(Dir.pwd, 'spec', 'factories', 'user.rb')
+        factory = instance_double(RailsFormation::Formatters::Factory, invoke_all: double)
+
+        expect(RailsFormation::Formatters::Factory)
+          .to receive(:new)
+          .with([config['factories'].first, factory_path])
+          .and_return(factory)
+        expect(factory)
+          .to receive(:invoke_all)
+          .once
+
+        described_class.apply(config)
+      end
+    end
+
     context 'migrations' do
       let(:config) do
         {
