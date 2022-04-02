@@ -1,3 +1,7 @@
 class <%= class_name %> < ApplicationRecord
-
+<% if validations.any? -%>
+<% validations.each do |validation| -%>
+  <%= validation %>
+<% end -%>
+<% end -%>
 end

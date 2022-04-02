@@ -23,9 +23,17 @@ module RailsFormation
         end
 
         def validations
-          model_configuration.fetch('columns', []).map { |config|
-            RailsFormation::Formatters::Models::Validation.new(config)
-          }.select(&:any?)
+          models_with_validations = model_configuration.fetch('columns', []).select do |config|
+            config.fetch('validations', []).size.positive?
+          end
+          
+          models_with_validations.map do |config|
+            config.fetch('validations', []).map do |val_config|
+              ::RailsFormation::Formatters::Models::Validation.new(
+                val_config.merge('column' => config.fetch('name'))
+              ).to_s
+            end
+          end.flatten
         end
     end
   end
