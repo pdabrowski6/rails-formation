@@ -3,6 +3,7 @@ require 'rails-formation/formatters/migration'
 require 'rails-formation/formatters/rubygem'
 require 'rails-formation/formatters/model'
 require 'rails-formation/formatters/factory'
+require 'rails-formation/formatters/seed'
 require 'rails-formation/cli/file_adapter'
 require 'rails-formation/cli/api_adapter'
 require 'rails-formation/cli/processor'
@@ -14,6 +15,7 @@ module RailsFormation
       create_and_run_migrations(template.fetch('migrations', []))
       create_factories(template.fetch('factories', []))
       # create_and_build_models(template.fetch('models', []))
+      insert_seeds(template.fetch('seeds', []))
     end
 
     private
@@ -55,6 +57,14 @@ module RailsFormation
         models.each do |config|
           ::RailsFormation::Formatters::Model.new([config]).invoke_all
         end
+      end
+
+      def insert_seeds(seeds)
+        return if seeds.size.zero?
+
+        seeds_path = File.join(Dir.pwd, 'db', 'seeds.rb')
+
+        ::RailsFormation::Formatters::Seed.new([seeds, seeds_path]).invoke_all
       end
   end
 end

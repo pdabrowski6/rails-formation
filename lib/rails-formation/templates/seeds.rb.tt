@@ -1,0 +1,3 @@
+<%- seeds.each do |seed| -%>
+<%= seed %>
+<% end -%>
