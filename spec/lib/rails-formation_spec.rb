@@ -2,6 +2,64 @@ require 'spec_helper'
 
 RSpec.describe RailsFormation do
   describe '.apply' do
+    context 'rubygems' do
+      let(:config) do
+        {
+          'rubygems' => [
+            { 'name' => 'factory_bot_rails', 'version' => '6.2.0', 'install_commands' => ['command1'] }
+          ]
+        }
+      end
+
+      it 'updates Gemfile' do
+        gemfile_path = File.join(Dir.pwd, 'Gemfile')
+        rubygem = instance_double(RailsFormation::Formatters::Rubygem, invoke_all: double)
+
+        expect(RailsFormation::Formatters::Rubygem)
+          .to receive(:new)
+          .with([config['rubygems'].first, gemfile_path])
+          .and_return(rubygem)
+        expect(rubygem)
+          .to receive(:invoke_all)
+          .once
+        expect_any_instance_of(Kernel)
+          .to receive(:system)
+          .with('bundle install')
+          .once
+        expect_any_instance_of(Kernel)
+          .to receive(:system)
+          .with('command1')
+          .once
+
+        described_class.apply(config)
+      end
+    end
+
+    context 'seeds' do
+      let(:config) do
+        {
+          'seeds' => [
+            { 'factory_name' => 'user', 'count' => 2 }
+          ]
+        }
+      end
+
+      it 'updates seeds' do
+        seeds_path = File.join(Dir.pwd, 'db', 'seeds.rb')
+        seeds = instance_double(RailsFormation::Formatters::Seed, invoke_all: double)
+
+        expect(RailsFormation::Formatters::Seed)
+          .to receive(:new)
+          .with([config['seeds'], seeds_path])
+          .and_return(seeds)
+        expect(seeds)
+          .to receive(:invoke_all)
+          .once
+
+        described_class.apply(config)
+      end
+    end
+
     context 'factories' do
       let(:config) do
         {

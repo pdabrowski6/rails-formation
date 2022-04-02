@@ -11,7 +11,7 @@ require 'rails-formation/cli/processor'
 module RailsFormation
   class << self
     def apply(template)
-      # bundle_and_install_gems(template.fetch('rubygems', []))
+      bundle_and_install_gems(template.fetch('rubygems', []))
       create_and_run_migrations(template.fetch('migrations', []))
       create_factories(template.fetch('factories', []))
       # create_and_build_models(template.fetch('models', []))
@@ -21,8 +21,12 @@ module RailsFormation
     private
 
       def bundle_and_install_gems(rubygems)
+        return if rubygems.size.zero?
+
+        gemfile_path = File.join(Dir.pwd, 'Gemfile')
+
         rubygems.each do |config|
-          ::RailsFormation::Formatters::Rubygem.new([config]).invoke_all
+          ::RailsFormation::Formatters::Rubygem.new([config, gemfile_path]).invoke_all
         end
   
         system 'bundle install'
@@ -33,6 +37,8 @@ module RailsFormation
       end
 
       def create_and_run_migrations(migrations)
+        return if migrations.size.zero?
+
         migrations.each do |config|
           table_name = config.fetch('table')
           migration_name = "#{Time.now.strftime("%Y%m%d%H%M%S")}_create_#{table_name}.rb"
