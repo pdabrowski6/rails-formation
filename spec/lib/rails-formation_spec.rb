@@ -2,6 +2,36 @@ require 'spec_helper'
 
 RSpec.describe RailsFormation do
   describe '.apply' do
+    context 'models' do
+      let(:config) do
+        {
+          'models' => [
+            {
+              'name' => 'User',
+              'columns' => [
+                { 'name' => 'email', 'type' => 'string', 'validations' => [] }
+              ]
+            }
+          ]
+        }
+      end
+
+      it 'creates model' do
+        model_path = File.join(Dir.pwd, 'app', 'models', 'user.rb')
+        model = instance_double(RailsFormation::Formatters::Model, invoke_all: double)
+
+        expect(RailsFormation::Formatters::Model)
+          .to receive(:new)
+          .with([config['models'].first, model_path])
+          .and_return(model)
+        expect(model)
+          .to receive(:invoke_all)
+          .once
+
+        described_class.apply(config)
+      end
+    end
+
     context 'rubygems' do
       let(:config) do
         {

@@ -6,11 +6,9 @@ module RailsFormation
       include Thor::Actions
       
       argument :model_configuration
+      argument :model_path
 
       def create_model
-        model_name = "#{class_name.downcase}.rb"
-        model_path = File.join(Dir.pwd, 'app', 'models', model_name)
-
         template('../templates/model.rb.tt', model_path)
       end
 

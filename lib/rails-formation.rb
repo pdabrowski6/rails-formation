@@ -14,7 +14,7 @@ module RailsFormation
       bundle_and_install_gems(template.fetch('rubygems', []))
       create_and_run_migrations(template.fetch('migrations', []))
       create_factories(template.fetch('factories', []))
-      # create_and_build_models(template.fetch('models', []))
+      create_and_build_models(template.fetch('models', []))
       insert_seeds(template.fetch('seeds', []))
     end
 
@@ -61,7 +61,10 @@ module RailsFormation
 
       def create_and_build_models(models)
         models.each do |config|
-          ::RailsFormation::Formatters::Model.new([config]).invoke_all
+          model_name = "#{config.fetch('name').downcase}.rb"
+          model_path = File.join(Dir.pwd, 'app', 'models', model_name)
+
+          ::RailsFormation::Formatters::Model.new([config, model_path]).invoke_all
         end
       end
 
