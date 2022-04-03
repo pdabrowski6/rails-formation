@@ -2,6 +2,7 @@ require_relative 'validations/base'
 require_relative 'validations/presence'
 require_relative 'validations/uniqueness'
 require_relative 'validations/length'
+require_relative 'validations/inclusion'
 
 module RailsFormation
   module Formatters
@@ -10,7 +11,8 @@ module RailsFormation
         MAPPINGS = {
           'presence' => ::RailsFormation::Formatters::Models::Validations::Presence,
           'uniqueness' => ::RailsFormation::Formatters::Models::Validations::Uniqueness,
-          'length' => ::RailsFormation::Formatters::Models::Validations::Length
+          'length' => ::RailsFormation::Formatters::Models::Validations::Length,
+          'inclusion' => ::RailsFormation::Formatters::Models::Validations::Inclusion
         }
 
         def initialize(config)
