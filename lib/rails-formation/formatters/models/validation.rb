@@ -5,6 +5,7 @@ require_relative 'validations/length'
 require_relative 'validations/inclusion'
 require_relative 'validations/exclusion'
 require_relative 'validations/confirmation'
+require_relative 'validations/format'
 
 module RailsFormation
   module Formatters
@@ -16,7 +17,8 @@ module RailsFormation
           'length' => ::RailsFormation::Formatters::Models::Validations::Length,
           'inclusion' => ::RailsFormation::Formatters::Models::Validations::Inclusion,
           'exclusion' => ::RailsFormation::Formatters::Models::Validations::Exclusion,
-          'confirmation' => ::RailsFormation::Formatters::Models::Validations::Confirmation
+          'confirmation' => ::RailsFormation::Formatters::Models::Validations::Confirmation,
+          'format' => ::RailsFormation::Formatters::Models::Validations::Format
         }
 
         def initialize(config)
