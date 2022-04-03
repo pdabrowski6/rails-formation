@@ -49,6 +49,10 @@ module RailsFormation
               on_option
             ].compact
           end
+
+          def validation_options
+            @config.fetch('options', {})
+          end
         end
       end
     end

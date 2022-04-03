@@ -74,6 +74,8 @@ module RailsFormation
         seeds_path = File.join(Dir.pwd, 'db', 'seeds.rb')
 
         ::RailsFormation::Formatters::Seed.new([seeds, seeds_path]).invoke_all
+
+        system('./bin/rails db:seed')
       end
   end
 end
