@@ -8,7 +8,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Uniqueness do
       context 'and match is not sensitive' do
         let(:config) do
           {
-            'name' => 'presence',
+            'name' => 'uniqueness',
             'column' => 'first_name',
             'message' => '',
             'on_update' => true,
@@ -29,7 +29,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Uniqueness do
       context 'and scope is with one column' do
         let(:config) do
           {
-            'name' => 'presence',
+            'name' => 'uniqueness',
             'column' => 'first_name',
             'message' => '',
             'on_update' => true,
@@ -51,7 +51,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Uniqueness do
       context 'and scope is with multiple columns' do
         let(:config) do
           {
-            'name' => 'presence',
+            'name' => 'uniqueness',
             'column' => 'first_name',
             'message' => '',
             'on_update' => true,
@@ -74,7 +74,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Uniqueness do
     context 'when base special options are passed' do
       let(:config) do
         {
-          'name' => 'presence',
+          'name' => 'uniqueness',
           'column' => 'first_name',
           'message' => 'custom message',
           'on_update' => false,
@@ -95,7 +95,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Uniqueness do
     context 'when no special options are passed' do
       let(:config) do
         {
-          'name' => 'presence',
+          'name' => 'uniqueness',
           'column' => 'first_name',
           'message' => '',
           'on_update' => true,

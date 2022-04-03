@@ -7,7 +7,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Length do
     context 'when minimal option is passed' do
       let(:config) do
         {
-          'name' => 'presence',
+          'name' => 'length',
           'column' => 'first_name',
           'message' => '',
           'on_update' => true,
@@ -31,7 +31,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Length do
     context 'when maximum option is passed' do
       let(:config) do
         {
-          'name' => 'presence',
+          'name' => 'length',
           'column' => 'first_name',
           'message' => '',
           'on_update' => true,
@@ -55,7 +55,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Length do
     context 'when range is passed' do
       let(:config) do
         {
-          'name' => 'presence',
+          'name' => 'length',
           'column' => 'first_name',
           'message' => '',
           'on_update' => true,
@@ -79,7 +79,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Length do
     context 'when special options are passed' do
       let(:config) do
         {
-          'name' => 'presence',
+          'name' => 'length',
           'column' => 'first_name',
           'message' => 'custom message',
           'on_update' => false,
@@ -101,7 +101,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Length do
     context 'when no special options are passed' do
       let(:config) do
         {
-          'name' => 'presence',
+          'name' => 'length',
           'column' => 'first_name',
           'message' => '',
           'on_update' => true,

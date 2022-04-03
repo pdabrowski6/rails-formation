@@ -7,7 +7,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Inclusion do
     context 'when special options are passed' do
       let(:config) do
         {
-          'name' => 'presence',
+          'name' => 'inclusion',
           'column' => 'first_name',
           'message' => 'custom message',
           'on_update' => false,
@@ -28,7 +28,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Inclusion do
     context 'when no special options are passed' do
       let(:config) do
         {
-          'name' => 'presence',
+          'name' => 'inclusion',
           'column' => 'first_name',
           'message' => '',
           'on_update' => true,
