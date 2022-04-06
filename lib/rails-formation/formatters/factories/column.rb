@@ -12,7 +12,7 @@ module RailsFormation
         def to_s
           if @config.key?('has_confirmation')
             base_part = "#{name} { #{value} }"
-            "#{base_part}\n#{name}_confirmation { #{name} }"
+            "#{base_part}\n  #{name}_confirmation { #{name} }"
           else
             "#{name} { #{value} }"
           end
@@ -46,14 +46,6 @@ module RailsFormation
           else
             raw_value
           end
-          # make sure all validations pass
-          # Absence (on create): column { }
-          # Comparsion
-          # Confirmation
-          # Format
-          # Inclusion
-          # Length
-          # Numericality
         end
 
         def raw_value
