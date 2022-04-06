@@ -7,6 +7,7 @@ require_relative 'validations/exclusion'
 require_relative 'validations/confirmation'
 require_relative 'validations/format'
 require_relative 'validations/numericality'
+require_relative 'validations/comparsion'
 
 module RailsFormation
   module Formatters
@@ -20,7 +21,8 @@ module RailsFormation
           'exclusion' => ::RailsFormation::Formatters::Models::Validations::Exclusion,
           'confirmation' => ::RailsFormation::Formatters::Models::Validations::Confirmation,
           'format' => ::RailsFormation::Formatters::Models::Validations::Format,
-          'numericality' => ::RailsFormation::Formatters::Models::Validations::Numericality
+          'numericality' => ::RailsFormation::Formatters::Models::Validations::Numericality,
+          'comparsion' => ::RailsFormation::Formatters::Models::Validations::Comparsion
         }
 
         def initialize(config)
