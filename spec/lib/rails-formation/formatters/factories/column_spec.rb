@@ -16,7 +16,7 @@ RSpec.describe RailsFormation::Formatters::Factories::Column do
         end
   
         it 'returns factory definition' do
-          expect(subject.to_s).to eq("first_name { FFaker::Lorem.sentence }\nfirst_name_confirmation { first_name }")
+          expect(subject.to_s).to eq("first_name { FFaker::Lorem.sentence }\n  first_name_confirmation { first_name }")
         end
       end
 

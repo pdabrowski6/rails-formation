@@ -7,10 +7,15 @@ require 'rails-formation/formatters/seed'
 require 'rails-formation/cli/file_adapter'
 require 'rails-formation/cli/api_adapter'
 require 'rails-formation/cli/processor'
+require 'rails-formation/version'
 
 module RailsFormation
+  RailsNotInstalled = Class.new(StandardError)
+
   class << self
     def apply(template)
+      verify_rails_installation
+      generate_project(template)
       bundle_and_install_gems(template.fetch('rubygems', []))
       create_and_run_migrations(template.fetch('migrations', []))
       create_factories(template.fetch('factories', []))
@@ -19,6 +24,17 @@ module RailsFormation
     end
 
     private
+
+      def verify_rails_installation
+        unless system("gem list ^rails$ --version #{RailsFormation::RAILS_VERSION} -i")
+          raise RailsNotInstalled, "Please install Rails #{RailsFormation::RAILS_VERSION} and retry"
+        end
+      end
+
+      def generate_project(template)
+        system "rails _#{RailsFormation::RAILS_VERSION}_ new #{template['name']} -d=postgresql"
+        Dir.chdir(template['name'])
+      end
 
       def bundle_and_install_gems(rubygems)
         return if rubygems.size.zero?

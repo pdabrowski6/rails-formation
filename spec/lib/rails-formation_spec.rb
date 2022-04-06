@@ -2,9 +2,23 @@ require 'spec_helper'
 
 RSpec.describe RailsFormation do
   describe '.apply' do
+    before do
+      allow_any_instance_of(Kernel)
+        .to receive(:system)
+        .with('gem list ^rails$ --version 7.0.2.3 -i')
+        .and_return(true)
+      allow_any_instance_of(Kernel)
+        .to receive(:system)
+        .with("rails _7.0.2.3_ new sampleapp -d=postgresql")
+      allow(Dir)
+        .to receive(:chdir)
+        .with('sampleapp')
+    end
+
     context 'models' do
       let(:config) do
         {
+          'name' => 'sampleapp',
           'models' => [
             {
               'name' => 'User',
@@ -35,6 +49,7 @@ RSpec.describe RailsFormation do
     context 'rubygems' do
       let(:config) do
         {
+          'name' => 'sampleapp',
           'rubygems' => [
             { 'name' => 'factory_bot_rails', 'version' => '6.2.0', 'install_commands' => ['command1'] }
           ]
@@ -68,6 +83,7 @@ RSpec.describe RailsFormation do
     context 'seeds' do
       let(:config) do
         {
+          'name' => 'sampleapp',
           'seeds' => [
             { 'factory_name' => 'user', 'count' => 2 }
           ]
@@ -85,6 +101,9 @@ RSpec.describe RailsFormation do
         expect(seeds)
           .to receive(:invoke_all)
           .once
+        expect_any_instance_of(Kernel)
+          .to receive(:system)
+          .with("./bin/rails db:seed")
 
         described_class.apply(config)
       end
@@ -93,6 +112,7 @@ RSpec.describe RailsFormation do
     context 'factories' do
       let(:config) do
         {
+          'name' => 'sampleapp',
           'factories' => [
             { 'name' => 'user', 'fields' => [] }
           ]
@@ -118,6 +138,7 @@ RSpec.describe RailsFormation do
     context 'migrations' do
       let(:config) do
         {
+          'name' => 'sampleapp',
           'migrations' => [
             { 'table' => 'users', 'columns' => [] }
           ]
