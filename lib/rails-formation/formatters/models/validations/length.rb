@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RailsFormation
   module Formatters
     module Models
@@ -16,25 +18,17 @@ module RailsFormation
           def extra_validation_options
             options = []
 
-            if exact_length?
-              options << "is: #{validation_options['length_value']}"
-            end
+            options << "is: #{validation_options['length_value']}" if exact_length?
 
-            if min_length?
-              options << "minimum: #{validation_options['length_min_value']}"
-            end
+            options << "minimum: #{validation_options['length_min_value']}" if min_length?
 
-            if max_length?
-              options << "maximum: #{validation_options['length_max_value']}"
-            end
+            options << "maximum: #{validation_options['length_max_value']}" if max_length?
 
-            if range_length?
-              options << "in: #{validation_options['length_min_value']}..#{validation_options['length_max_value']}"
-            end
+            options << "in: #{validation_options['length_min_value']}..#{validation_options['length_max_value']}" if range_length?
 
             options
           end
-          
+
           def exact_length?
             validation_options['length_operator_type'] == 'value' &&
               !validation_options['length_value'].nil?
@@ -42,13 +36,13 @@ module RailsFormation
 
           def min_length?
             validation_options['length_operator_type'] == 'range' &&
-              validation_options['length_max_value'].to_i == 0 &&
+              validation_options['length_max_value'].to_i.zero? &&
               validation_options['length_min_value'].to_i.positive?
           end
 
           def max_length?
             validation_options['length_operator_type'] == 'range' &&
-              validation_options['length_min_value'].to_i == 0 &&
+              validation_options['length_min_value'].to_i.zero? &&
               validation_options['length_max_value'].to_i.positive?
           end
 

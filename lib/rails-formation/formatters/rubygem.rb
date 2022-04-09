@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'rubygems/gem'
 
 module RailsFormation
   module Formatters
     class Rubygem < Thor::Group
       include Thor::Actions
-      
+
       argument :gem
       argument :gemfile_path
 

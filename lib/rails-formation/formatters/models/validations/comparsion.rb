@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RailsFormation
   module Formatters
     module Models
@@ -15,10 +17,10 @@ module RailsFormation
 
           def extra_validation_options
             value = if validation_options['comparsion_value_type'] == 'column_value'
-              ":#{validation_options['comparsion_value']}"
-            else
-              validation_options['comparsion_value']
-            end
+                      ":#{validation_options['comparsion_value']}"
+                    else
+                      validation_options['comparsion_value']
+                    end
 
             ["#{validation_options['comparsion_operator']}: #{value}"]
           end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RailsFormation
   module Formatters
     module Factories
@@ -14,7 +16,7 @@ module RailsFormation
           'binary' => '',
           'timestamp' => 'Time.now.getutc',
           'datetime' => 'DateTime.now'
-        }
+        }.freeze
 
         def self.detect(sql_type)
           MAPPINGS[sql_type]

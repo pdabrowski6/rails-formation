@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'default_value'
 require_relative 'value'
 

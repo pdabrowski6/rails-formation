@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe RailsFormation do
@@ -9,7 +11,7 @@ RSpec.describe RailsFormation do
         .and_return(true)
       allow_any_instance_of(Kernel)
         .to receive(:system)
-        .with("rails _7.0.2.3_ new sampleapp -d=postgresql")
+        .with('rails _7.0.2.3_ new sampleapp -d=postgresql')
       allow(Dir)
         .to receive(:chdir)
         .with('sampleapp')
@@ -103,7 +105,7 @@ RSpec.describe RailsFormation do
           .once
         expect_any_instance_of(Kernel)
           .to receive(:system)
-          .with("./bin/rails db:seed")
+          .with('./bin/rails db:seed')
 
         described_class.apply(config)
       end
@@ -149,7 +151,7 @@ RSpec.describe RailsFormation do
         current_time = Time.now
 
         Timecop.freeze(current_time) do
-          migration_name = "#{Time.now.strftime("%Y%m%d%H%M%S")}_create_users.rb"
+          migration_name = "#{Time.now.strftime('%Y%m%d%H%M%S')}_create_users.rb"
           migration_path = File.join(Dir.pwd, 'db', 'migrate', migration_name)
           migration = instance_double(RailsFormation::Formatters::Migration, invoke_all: double)
 

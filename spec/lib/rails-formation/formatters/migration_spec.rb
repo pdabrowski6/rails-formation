@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe RailsFormation::Formatters::Migration do
@@ -33,7 +35,7 @@ RSpec.describe RailsFormation::Formatters::Migration do
             ]
           },
           {
-            'column_names' => ['first_name', 'age'],
+            'column_names' => %w[first_name age],
             'options' => []
           }
         ]

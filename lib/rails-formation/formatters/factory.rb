@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'factories/column'
 
 module RailsFormation
   module Formatters
     class Factory < Thor::Group
       include Thor::Actions
-      
+
       argument :factory_configuration
       argument :factory_path
 
@@ -18,19 +20,19 @@ module RailsFormation
 
       private
 
-        def factory_name
-          factory_configuration.fetch('name')
-        end
+      def factory_name
+        factory_configuration.fetch('name')
+      end
 
-        def associations
-          []
-        end
+      def associations
+        []
+      end
 
-        def columns
-          factory_configuration.fetch('fields', []).map { |config|
-            RailsFormation::Formatters::Factories::Column.new(config).to_s
-          }
+      def columns
+        factory_configuration.fetch('fields', []).map do |config|
+          RailsFormation::Formatters::Factories::Column.new(config).to_s
         end
+      end
     end
   end
 end

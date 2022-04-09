@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RailsFormation
   module Formatters
     module Models
@@ -16,13 +18,9 @@ module RailsFormation
           def extra_validation_options
             options = []
 
-            if validation_options['format_matcher'] == 'with'
-              options << "with: #{validation_options['format_value']}"
-            end
+            options << "with: #{validation_options['format_value']}" if validation_options['format_matcher'] == 'with'
 
-            if validation_options['format_matcher'] == 'without'
-              options << "without: #{validation_options['format_value']}"
-            end
+            options << "without: #{validation_options['format_value']}" if validation_options['format_matcher'] == 'without'
 
             options
           end

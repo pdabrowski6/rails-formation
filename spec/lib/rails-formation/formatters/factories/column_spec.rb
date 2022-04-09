@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe RailsFormation::Formatters::Factories::Column do
@@ -14,7 +16,7 @@ RSpec.describe RailsFormation::Formatters::Factories::Column do
             'has_confirmation' => true
           }
         end
-  
+
         it 'returns factory definition' do
           expect(subject.to_s).to eq("first_name { FFaker::Lorem.sentence }\n  first_name_confirmation { first_name }")
         end
@@ -29,7 +31,7 @@ RSpec.describe RailsFormation::Formatters::Factories::Column do
             'in' => "['abc', 'efg']"
           }
         end
-  
+
         it 'returns factory definition' do
           expect(subject.to_s).to eq("first_name { ['abc', 'efg'].sample }")
         end

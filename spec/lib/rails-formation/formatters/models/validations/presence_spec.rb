@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe RailsFormation::Formatters::Models::Validations::Presence do
@@ -13,12 +15,16 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Presence do
           'on_update' => false,
           'on_create' => true,
           'allow_nil' => true,
-          'allow_blank' => false 
+          'allow_blank' => false
         }
       end
 
       it 'returns validation definition' do
-        expect(subject.to_s).to eq('validates :first_name, presence: { allow_nil: true, message: \'custom message\', on: :create }')
+        expect(
+          subject.to_s
+        ).to eq(
+          'validates :first_name, presence: { allow_nil: true, message: \'custom message\', on: :create }'
+        )
       end
     end
 
@@ -31,7 +37,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Presence do
           'on_update' => true,
           'on_create' => true,
           'allow_nil' => false,
-          'allow_blank' => false 
+          'allow_blank' => false
         }
       end
 

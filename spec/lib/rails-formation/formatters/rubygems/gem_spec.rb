@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe RailsFormation::Formatters::Rubygems::Gem do
@@ -21,7 +23,7 @@ RSpec.describe RailsFormation::Formatters::Rubygems::Gem do
         {
           'name' => 'factory_bot_rails',
           'version' => '6.2.0',
-          'groups' => ['development', 'test']
+          'groups' => %w[development test]
         }
       end
 
@@ -30,7 +32,7 @@ RSpec.describe RailsFormation::Formatters::Rubygems::Gem do
           expect(File)
             .to receive(:read)
             .with(gemfile_path)
-            .and_return("group :development, :test do")
+            .and_return('group :development, :test do')
 
           expect(subject.to_s).to eq("  gem 'factory_bot_rails', '6.2.0'\n")
         end
@@ -41,7 +43,7 @@ RSpec.describe RailsFormation::Formatters::Rubygems::Gem do
           expect(File)
             .to receive(:read)
             .with(gemfile_path)
-            .and_return("")
+            .and_return('')
 
           expect(subject.to_s).to eq("group :development, :test do\n  gem 'factory_bot_rails', '6.2.0'\nend")
         end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RailsFormation
   module Formatters
     module Factories
@@ -65,7 +67,7 @@ module RailsFormation
           'month' => 'FFaker::Time.month',
           'datetime' => 'FFaker::Time.datetime',
           'date' => 'FFaker::Time.date'
-        }
+        }.freeze
 
         def self.detect(specialized)
           MAPPINGS[specialized]

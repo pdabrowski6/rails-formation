@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RailsFormation
   module Formatters
     module Migrations
@@ -8,9 +10,9 @@ module RailsFormation
 
         def to_s
           base_definition = [
-            "t.",
+            't.',
             @config.fetch('type'),
-            " :",
+            ' :',
             @config.fetch('name')
           ].join
 
@@ -18,12 +20,12 @@ module RailsFormation
 
           options = @config['options'].map do |option|
             value = option['value']
-            parsed_value = value.kind_of?(String) ? "'#{value}'" : value
+            parsed_value = value.is_a?(String) ? "'#{value}'" : value
 
             "#{option['name']}: #{parsed_value}"
-          end.join(", ")
+          end.join(', ')
 
-          [base_definition, ", ", options].join
+          [base_definition, ', ', options].join
         end
       end
     end

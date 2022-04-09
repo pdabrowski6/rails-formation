@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RailsFormation
   module Formatters
     module Models
@@ -20,13 +22,9 @@ module RailsFormation
           def extra_validation_options
             options = []
 
-            if !case_sensitive?
-              options << 'case_sensitive: false'
-            end
+            options << 'case_sensitive: false' unless case_sensitive?
 
-            if !blank_scope?
-              options << scope
-            end
+            options << scope unless blank_scope?
 
             options
           end

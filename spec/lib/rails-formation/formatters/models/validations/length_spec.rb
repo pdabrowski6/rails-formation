@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe RailsFormation::Formatters::Models::Validations::Length do
@@ -85,7 +87,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Length do
           'on_update' => false,
           'on_create' => true,
           'allow_nil' => true,
-          'allow_blank' => false ,
+          'allow_blank' => false,
           'options' => {
             'length_operator_type' => 'value',
             'length_value' => '3'
@@ -94,7 +96,11 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Length do
       end
 
       it 'returns validation definition' do
-        expect(subject.to_s).to eq('validates :first_name, length: { allow_nil: true, message: \'custom message\', on: :create, is: 3 }')
+        expect(
+          subject.to_s
+        ).to eq(
+          'validates :first_name, length: { allow_nil: true, message: \'custom message\', on: :create, is: 3 }'
+        )
       end
     end
 

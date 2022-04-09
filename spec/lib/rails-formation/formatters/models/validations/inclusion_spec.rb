@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe RailsFormation::Formatters::Models::Validations::Inclusion do
@@ -13,7 +15,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Inclusion do
           'on_update' => false,
           'on_create' => true,
           'allow_nil' => true,
-          'allow_blank' => false ,
+          'allow_blank' => false,
           'options' => {
             'in' => '[1, 2, 3]'
           }
@@ -21,7 +23,11 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Inclusion do
       end
 
       it 'returns validation definition' do
-        expect(subject.to_s).to eq('validates :first_name, inclusion: { allow_nil: true, message: \'custom message\', on: :create, in: [1, 2, 3] }')
+        expect(
+          subject.to_s
+        ).to eq(
+          'validates :first_name, inclusion: { allow_nil: true, message: \'custom message\', on: :create, in: [1, 2, 3] }'
+        )
       end
     end
 

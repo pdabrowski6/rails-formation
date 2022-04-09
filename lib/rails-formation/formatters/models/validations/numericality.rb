@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RailsFormation
   module Formatters
     module Models
@@ -20,9 +22,7 @@ module RailsFormation
               options << "greater_than: #{validation_options['numericality_value']}"
             end
 
-            if validation_options['numericality_operator'] == 'only_integer'
-              options << "only_integer: true"
-            end
+            options << 'only_integer: true' if validation_options['numericality_operator'] == 'only_integer'
 
             if validation_options['numericality_operator'] == 'greater_than_or_equal_to'
               options << "greater_than_or_equal_to: #{validation_options['numericality_value']}"
@@ -44,17 +44,11 @@ module RailsFormation
               options << "other_than: #{validation_options['numericality_value']}"
             end
 
-            if validation_options['numericality_operator'] == 'in'
-              options << "in: #{validation_options['numericality_value']}"
-            end
+            options << "in: #{validation_options['numericality_value']}" if validation_options['numericality_operator'] == 'in'
 
-            if validation_options['numericality_operator'] == 'odd'
-              options << "odd: true"
-            end
+            options << 'odd: true' if validation_options['numericality_operator'] == 'odd'
 
-            if validation_options['numericality_operator'] == 'even'
-              options << "even: true"
-            end
+            options << 'even: true' if validation_options['numericality_operator'] == 'even'
 
             options
           end

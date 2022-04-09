@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe RailsFormation::Formatters::Models::Validations::Uniqueness do
@@ -20,7 +22,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Uniqueness do
             }
           }
         end
-  
+
         it 'returns validation definition' do
           expect(subject.to_s).to eq('validates :first_name, uniqueness: { case_sensitive: false }')
         end
@@ -42,7 +44,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Uniqueness do
             }
           }
         end
-  
+
         it 'returns validation definition' do
           expect(subject.to_s).to eq('validates :first_name, uniqueness: { scope: :last_name }')
         end
@@ -64,7 +66,7 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Uniqueness do
             }
           }
         end
-  
+
         it 'returns validation definition' do
           expect(subject.to_s).to eq('validates :first_name, uniqueness: { scope: [:last_name, :email] }')
         end
@@ -88,7 +90,11 @@ RSpec.describe RailsFormation::Formatters::Models::Validations::Uniqueness do
       end
 
       it 'returns validation definition' do
-        expect(subject.to_s).to eq('validates :first_name, uniqueness: { allow_nil: true, message: \'custom message\', on: :create }')
+        expect(
+          subject.to_s
+        ).to eq(
+          'validates :first_name, uniqueness: { allow_nil: true, message: \'custom message\', on: :create }'
+        )
       end
     end
 

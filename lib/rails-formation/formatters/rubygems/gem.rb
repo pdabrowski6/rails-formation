@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RailsFormation
   module Formatters
     module Rubygems
@@ -44,7 +46,7 @@ module RailsFormation
         def groups_def
           return if @config.fetch('groups', []).size.zero?
 
-          groups_def = @config['groups'].map { |name| ":#{name}" }.join(", ")
+          groups_def = @config['groups'].map { |name| ":#{name}" }.join(', ')
 
           "group #{groups_def} do\n"
         end

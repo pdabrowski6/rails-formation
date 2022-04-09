@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RailsFormation
   module Cli
     class Processor
@@ -20,15 +22,14 @@ module RailsFormation
       private
 
       def validate_command
-        unless COMMANDS.include?(@command.to_s.downcase)
-          raise InvalidCommand, "command #{@command} is not supported!"
-        end
+        raise InvalidCommand, "command #{@command} is not supported!" unless COMMANDS.include?(@command.to_s.downcase)
       end
 
       def adapter
-        if @uid.match?(/.*.json$/)
+        case @uid
+        when /.*.json$/
           ::RailsFormation::Cli::FileAdapter.new(@uid)
-        elsif @uid.match?(/^rft-.*/)
+        when /^rft-.*/
           ::RailsFormation::Cli::ApiAdapter.new(@uid)
         else
           raise InvalidUid, "#{@uid} is not valid template file or UID"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe RailsFormation::Formatters::Migrations::Index do
@@ -34,7 +36,7 @@ RSpec.describe RailsFormation::Formatters::Migrations::Index do
     context 'when multiple columns are given for index' do
       let(:config) do
         {
-          'column_names' => ['first_name', 'last_name']
+          'column_names' => %w[first_name last_name]
         }
       end
 

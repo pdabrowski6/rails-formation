@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'seeds/row'
 
 module RailsFormation
   module Formatters
     class Seed < Thor::Group
       include Thor::Actions
-      
+
       argument :seeds_configuration
       argument :seeds_path
 
@@ -18,11 +20,11 @@ module RailsFormation
 
       private
 
-        def seeds
-          seeds_configuration.map { |config|
+      def seeds
+        seeds_configuration.map do |config|
           RailsFormation::Formatters::Seeds::Row.new(config).to_s
-          }
         end
+      end
     end
   end
 end

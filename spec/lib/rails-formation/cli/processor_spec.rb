@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe RailsFormation::Cli::Processor do
@@ -13,7 +15,7 @@ RSpec.describe RailsFormation::Cli::Processor do
     end
 
     context 'when adapter is not matched' do
-      let(:args) { ['apply', 'invalid'] }
+      let(:args) { %w[apply invalid] }
 
       it 'raises InvalidUid error' do
         expect { subject.call }.to raise_error(RailsFormation::Cli::Processor::InvalidUid)
@@ -40,7 +42,7 @@ RSpec.describe RailsFormation::Cli::Processor do
     end
 
     context 'when token is matched' do
-      let(:args) { ['apply', 'rft-123'] }
+      let(:args) { %w[apply rft-123] }
 
       it 'returns api adapter' do
         adapter = instance_double(RailsFormation::Cli::ApiAdapter, template: 'template')

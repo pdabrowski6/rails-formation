@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'validations/base'
 require_relative 'validations/presence'
 require_relative 'validations/uniqueness'
@@ -23,7 +25,7 @@ module RailsFormation
           'format' => ::RailsFormation::Formatters::Models::Validations::Format,
           'numericality' => ::RailsFormation::Formatters::Models::Validations::Numericality,
           'comparsion' => ::RailsFormation::Formatters::Models::Validations::Comparsion
-        }
+        }.freeze
 
         def initialize(config)
           @config = config
