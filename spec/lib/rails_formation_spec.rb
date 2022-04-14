@@ -20,7 +20,7 @@ RSpec.describe RailsFormation do
     context 'models' do
       let(:config) do
         {
-          'name' => 'sampleapp',
+          'app_name' => 'sampleapp',
           'models' => [
             {
               'name' => 'User',
@@ -51,7 +51,7 @@ RSpec.describe RailsFormation do
     context 'rubygems' do
       let(:config) do
         {
-          'name' => 'sampleapp',
+          'app_name' => 'sampleapp',
           'rubygems' => [
             { 'name' => 'factory_bot_rails', 'version' => '6.2.0', 'install_commands' => ['command1'] }
           ]
@@ -85,7 +85,7 @@ RSpec.describe RailsFormation do
     context 'seeds' do
       let(:config) do
         {
-          'name' => 'sampleapp',
+          'app_name' => 'sampleapp',
           'seeds' => [
             { 'factory_name' => 'user', 'count' => 2 }
           ]
@@ -114,7 +114,7 @@ RSpec.describe RailsFormation do
     context 'factories' do
       let(:config) do
         {
-          'name' => 'sampleapp',
+          'app_name' => 'sampleapp',
           'factories' => [
             { 'name' => 'user', 'fields' => [] }
           ]
@@ -140,7 +140,7 @@ RSpec.describe RailsFormation do
     context 'migrations' do
       let(:config) do
         {
-          'name' => 'sampleapp',
+          'app_name' => 'sampleapp',
           'migrations' => [
             { 'table' => 'users', 'columns' => [] }
           ]

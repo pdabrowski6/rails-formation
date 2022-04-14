@@ -34,8 +34,13 @@ module RailsFormation
     end
 
     def generate_project(template)
-      system "rails _#{RailsFormation::RAILS_VERSION}_ new #{template['name']} -d=postgresql"
-      Dir.chdir(template['name'])
+      if template['architecture'] == 'api'
+        system "rails _#{RailsFormation::RAILS_VERSION}_ new #{template['app_name']} --api -d=postgresql"
+      else
+        system "rails _#{RailsFormation::RAILS_VERSION}_ new #{template['app_name']} -d=postgresql"
+      end
+
+      Dir.chdir(template['app_name'])
     end
 
     def bundle_and_install_gems(rubygems)
