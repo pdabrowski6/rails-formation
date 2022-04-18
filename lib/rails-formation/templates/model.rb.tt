@@ -4,4 +4,9 @@ class <%= class_name %> < ApplicationRecord
   <%= validation %>
 <% end -%>
 <% end -%>
+<% if associations.any? -%>
+<% associations.each do |association| -%>
+  <%= association %>
+<% end -%>
+<% end -%>
 end
