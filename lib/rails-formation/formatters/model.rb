@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'models/validation'
+require_relative 'models/association'
 
 module RailsFormation
   module Formatters
@@ -22,6 +23,12 @@ module RailsFormation
 
       def class_name
         model_configuration.fetch('name')
+      end
+
+      def associations
+        model_configuration.fetch('associations', []).map do |config|
+          RailsFormation::Formatters::Models::Association.new(config).to_s
+        end
       end
 
       def validations
