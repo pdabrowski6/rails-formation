@@ -11,6 +11,7 @@ RSpec.describe RailsFormation::Formatters::Migration do
     let(:config) do
       {
         'table' => 'users',
+        'migration_name' => 'Users',
         'timestamps' => true,
         'columns' => [
           {

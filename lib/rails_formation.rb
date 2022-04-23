@@ -84,7 +84,7 @@ module RailsFormation
 
     def create_and_build_models(models)
       models.each do |config|
-        model_name = "#{config.fetch('name').downcase}.rb"
+        model_name = "#{config.fetch('file_name').downcase}.rb"
         model_path = File.join(Dir.pwd, 'app', 'models', model_name)
 
         ::RailsFormation::Formatters::Model.new([config, model_path]).invoke_all

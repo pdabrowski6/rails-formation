@@ -49,7 +49,7 @@ module RailsFormation
           'email' => 'FFaker::Internet.email',
           'username' => 'FFaker::Internet.user_name',
           'domain' => 'FFaker::Internet.domain_name',
-          'slug' => "Faker::Internet.slug(nil, '-')",
+          'slug' => "FFaker::Internet.slug(nil, '-')",
           'job_title' => 'FFaker::Job.title',
           'locale' => 'FFaker::Locale.code',
           'language' => 'FFaker::Locale.language',

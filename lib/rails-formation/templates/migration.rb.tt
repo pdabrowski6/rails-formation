@@ -1,11 +1,11 @@
-class Create<%= table_name.capitalize %> < ActiveRecord::Migration[7.0]
+class Create<%= migration_name %> < ActiveRecord::Migration[7.0]
   def change
-    create_table :<%= table_name %> do |t|
+    <% if table_options.nil? %>create_table :<%= table_name %> do |t|<% else %>create_table :<%= table_name %>, <%= table_options %> do |t|<% end %>
   <% columns.each do |column| -%>
     <%= column %>
   <% end -%>
-  <% if timestamps? -%>
-  t.timestamps
+  <%- if timestamps? -%>
+    t.timestamps
   <% end -%>
   end
 
