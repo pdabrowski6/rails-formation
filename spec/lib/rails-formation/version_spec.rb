@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe RailsFormation::VERSION do
   it 'returns version number' do
-    expect(RailsFormation::VERSION).to eq('0.0.0.3')
+    expect(RailsFormation::VERSION).to eq('0.0.0.4')
   end
 end
 

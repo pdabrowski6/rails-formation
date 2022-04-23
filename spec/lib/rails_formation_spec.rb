@@ -24,6 +24,7 @@ RSpec.describe RailsFormation do
           'models' => [
             {
               'name' => 'User',
+              'file_name' => 'user',
               'columns' => [
                 { 'name' => 'email', 'type' => 'string', 'validations' => [] }
               ]
@@ -142,7 +143,7 @@ RSpec.describe RailsFormation do
         {
           'app_name' => 'sampleapp',
           'migrations' => [
-            { 'table' => 'users', 'columns' => [] }
+            { 'table' => 'users', 'columns' => [], 'migration_name' => 'Users' }
           ]
         }
       end

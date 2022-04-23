@@ -2,6 +2,7 @@
 
 require_relative 'migrations/column'
 require_relative 'migrations/index'
+require_relative 'migrations/options'
 
 module RailsFormation
   module Formatters
@@ -25,8 +26,18 @@ module RailsFormation
         migration_configuration.fetch('table')
       end
 
+      def migration_name
+        migration_configuration.fetch('migration_name')
+      end
+
       def timestamps?
         migration_configuration.fetch('timestamps', false)
+      end
+
+      def table_options
+        RailsFormation::Formatters::Migrations::Options.new(
+          migration_configuration.fetch('options', [])
+        ).to_s
       end
 
       def columns
