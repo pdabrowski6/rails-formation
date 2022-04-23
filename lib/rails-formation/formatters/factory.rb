@@ -25,7 +25,7 @@ module RailsFormation
       end
 
       def associations
-        []
+        factory_configuration.fetch('associations', [])
       end
 
       def columns

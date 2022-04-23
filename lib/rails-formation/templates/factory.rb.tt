@@ -3,5 +3,8 @@ FactoryBot.define do
 <% columns.each do |column| -%>
     <%= column %>
 <% end -%>
+<% associations.each do |association| -%>
+    <%= association %>
+<% end -%>
   end
 end
