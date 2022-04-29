@@ -9,17 +9,17 @@ RSpec.describe RailsFormation::Formatters::Routes::Resource do
     let(:config) do
       {
         'additional_routes' => {
-          'member' => [ { 'action' => 'test', 'request' => 'get' }],
-          'collection' => [ { 'action' => 'verify', 'request' => 'post' }]
+          'member' => [{ 'action' => 'test', 'request' => 'get' }],
+          'collection' => [{ 'action' => 'verify', 'request' => 'post' }]
         }
       }
     end
 
     it 'returns additional routes configuration' do
       expect(subject.additional_routes).to eq({
-        'member' => ['get :test'],
-        'collection' => ['post :verify']
-      })
+                                                'member' => ['get :test'],
+                                                'collection' => ['post :verify']
+                                              })
     end
   end
 
@@ -69,7 +69,7 @@ RSpec.describe RailsFormation::Formatters::Routes::Resource do
       let(:config) do
         {
           'additional_routes' => {
-            'member' => [ { 'action' => 'test', 'request' => 'get' }],
+            'member' => [{ 'action' => 'test', 'request' => 'get' }],
             'collection' => []
           }
         }
@@ -85,7 +85,7 @@ RSpec.describe RailsFormation::Formatters::Routes::Resource do
         let(:config) do
           {
             'additional_routes' => {
-              'collection' => [ { 'action' => 'test', 'request' => 'get' }],
+              'collection' => [{ 'action' => 'test', 'request' => 'get' }],
               'member' => []
             }
           }

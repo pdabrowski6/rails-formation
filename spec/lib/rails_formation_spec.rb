@@ -17,6 +17,36 @@ RSpec.describe RailsFormation do
         .with('sampleapp')
     end
 
+    context 'routes' do
+      let(:config) do
+        {
+          'app_name' => 'sampleapp',
+          'routes' => [
+            {
+              'resource' => 'companies',
+              'restful_actions' => %w[index],
+              'additional_routes' => {}
+            }
+          ]
+        }
+      end
+
+      it 'creates routes file' do
+        routes_path = File.join(Dir.pwd, 'config', 'routes.rb')
+        routes = instance_double(RailsFormation::Formatters::Route, invoke_all: double)
+
+        expect(RailsFormation::Formatters::Route)
+          .to receive(:new)
+          .with([config['routes'], routes_path])
+          .and_return(routes)
+        expect(routes)
+          .to receive(:invoke_all)
+          .once
+
+        described_class.apply(config)
+      end
+    end
+
     context 'models' do
       let(:config) do
         {
