@@ -29,6 +29,16 @@ RSpec.describe RailsFormation::Formatters::Route do
           'resource' => 'companies',
           'restful_actions' => %w[index],
           'additional_routes' => {}
+        },
+        {
+          'resource' => 'comments',
+          'restful_actions' => %w[index show new create edit update destroy],
+          'additional_routes' => {
+            'member' => [],
+            'collection' => [
+              { 'request' => 'get', 'action' => 'accepted' }
+            ]
+          }
         }
       ]
     end

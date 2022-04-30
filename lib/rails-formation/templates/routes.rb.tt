@@ -9,8 +9,14 @@ Rails.application.routes.draw do
 <% end %>
     end
 <% end -%>
+<% if resource.additional_routes.key?('collection') -%>
+    collection do
+<% resource.additional_routes['collection'].each do |route| -%>
+      <%= route -%>
+<% end %>
+    end
+<% end -%>
   end
-
 <% else -%>
   <%= resource.start_line %>
 <% end -%>
