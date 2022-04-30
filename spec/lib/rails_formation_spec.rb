@@ -21,6 +21,7 @@ RSpec.describe RailsFormation do
       let(:config) do
         {
           'app_name' => 'sampleapp',
+          'installation_command' => 'rails _7.0.2.3_ new sampleapp -d=postgresql',
           'routes' => [
             {
               'resource' => 'companies',
@@ -51,6 +52,7 @@ RSpec.describe RailsFormation do
       let(:config) do
         {
           'app_name' => 'sampleapp',
+          'installation_command' => 'rails _7.0.2.3_ new sampleapp -d=postgresql',
           'models' => [
             {
               'name' => 'User',
@@ -83,6 +85,7 @@ RSpec.describe RailsFormation do
       let(:config) do
         {
           'app_name' => 'sampleapp',
+          'installation_command' => 'rails _7.0.2.3_ new sampleapp -d=postgresql',
           'rubygems' => [
             { 'name' => 'factory_bot_rails', 'version' => '6.2.0', 'install_commands' => ['command1'] }
           ]
@@ -117,6 +120,7 @@ RSpec.describe RailsFormation do
       let(:config) do
         {
           'app_name' => 'sampleapp',
+          'installation_command' => 'rails _7.0.2.3_ new sampleapp -d=postgresql',
           'seeds' => [
             { 'factory_name' => 'user', 'count' => 2 }
           ]
@@ -146,6 +150,7 @@ RSpec.describe RailsFormation do
       let(:config) do
         {
           'app_name' => 'sampleapp',
+          'installation_command' => 'rails _7.0.2.3_ new sampleapp -d=postgresql',
           'factories' => [
             { 'name' => 'user', 'fields' => [] }
           ]
@@ -172,6 +177,7 @@ RSpec.describe RailsFormation do
       let(:config) do
         {
           'app_name' => 'sampleapp',
+          'installation_command' => 'rails _7.0.2.3_ new sampleapp -d=postgresql',
           'migrations' => [
             { 'table' => 'users', 'columns' => [], 'migration_name' => 'Users' }
           ]
