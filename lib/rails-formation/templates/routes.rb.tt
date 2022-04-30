@@ -1,0 +1,24 @@
+Rails.application.routes.draw do
+<% resources.each do |resource| -%>
+<% if resource.create_block? -%>
+  <%= resource.start_line -%> do
+<% if resource.additional_routes.key?('member') -%>
+    member do
+<% resource.additional_routes['member'].each do |route| -%>
+      <%= route %>
+<% end -%>
+    end
+<% end -%>
+<% if resource.additional_routes.key?('collection') -%>
+    collection do
+<% resource.additional_routes['collection'].each do |route| -%>
+      <%= route %>
+<% end -%>
+    end
+<% end -%>
+  end
+<% else -%>
+  <%= resource.start_line %>
+<% end -%>
+<% end -%>
+end

@@ -6,6 +6,7 @@ require 'rails-formation/formatters/rubygem'
 require 'rails-formation/formatters/model'
 require 'rails-formation/formatters/factory'
 require 'rails-formation/formatters/seed'
+require 'rails-formation/formatters/route'
 require 'rails-formation/cli/file_adapter'
 require 'rails-formation/cli/api_adapter'
 require 'rails-formation/cli/processor'
@@ -23,6 +24,7 @@ module RailsFormation
       create_factories(template.fetch('factories', []))
       create_and_build_models(template.fetch('models', []))
       insert_seeds(template.fetch('seeds', []))
+      create_routes(template.fetch('routes', []))
     end
 
     private
@@ -99,6 +101,13 @@ module RailsFormation
       ::RailsFormation::Formatters::Seed.new([seeds, seeds_path]).invoke_all
 
       system('./bin/rails db:seed')
+    end
+
+    def create_routes(routes)
+      return if routes.size.zero?
+
+      routes_path = File.join(Dir.pwd, 'config', 'routes.rb')
+      ::RailsFormation::Formatters::Route.new([routes, routes_path]).invoke_all
     end
   end
 end
