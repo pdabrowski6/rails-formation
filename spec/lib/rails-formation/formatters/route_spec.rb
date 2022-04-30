@@ -16,7 +16,8 @@ RSpec.describe RailsFormation::Formatters::Route do
           'additional_routes' => {
             'collection' => [],
             'member' => [
-              { 'request' => 'get', 'action' => 'publish' }
+              { 'request' => 'get', 'action' => 'publish' },
+              { 'request' => 'get', 'action' => 'unpublish' }
             ]
           }
         },
