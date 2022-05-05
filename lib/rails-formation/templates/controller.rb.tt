@@ -1,0 +1,20 @@
+class <%= controller_class %> < ApplicationController
+<% if public_actions.any? -%>
+<% public_actions.each do |action| -%>
+  def <%= action %>
+
+  end
+
+<% end -%>
+<% end -%>
+<% if private_actions.any? -%>
+  private
+
+<% private_actions.each do |action| -%>
+  def <%= action %>
+
+  end
+
+<% end -%>
+<% end -%>
+end

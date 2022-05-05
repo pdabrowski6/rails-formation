@@ -7,6 +7,7 @@ require 'rails-formation/formatters/model'
 require 'rails-formation/formatters/factory'
 require 'rails-formation/formatters/seed'
 require 'rails-formation/formatters/route'
+require 'rails-formation/formatters/controller'
 require 'rails-formation/cli/file_adapter'
 require 'rails-formation/cli/api_adapter'
 require 'rails-formation/cli/processor'
@@ -25,6 +26,7 @@ module RailsFormation
       create_and_build_models(template.fetch('models', []))
       insert_seeds(template.fetch('seeds', []))
       create_routes(template.fetch('routes', []))
+      create_controllers(template.fetch('controllers', []))
     end
 
     private
@@ -77,6 +79,14 @@ module RailsFormation
         factory_name = "#{config.fetch('name')}.rb"
         factory_path = File.join(Dir.pwd, 'spec', 'factories', factory_name)
         ::RailsFormation::Formatters::Factory.new([config, factory_path]).invoke_all
+      end
+    end
+
+    def create_controllers(controllers)
+      controllers.each do |config|
+        controller_path = File.join(Dir.pwd, 'app', 'controllers', config['file_name'])
+
+        ::RailsFormation::Formatters::Controller.new([config, controller_path]).invoke_all
       end
     end
 
