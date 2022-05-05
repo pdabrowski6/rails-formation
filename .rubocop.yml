@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - rails-formation.gemspec
+    - spec/templates/*
   DisplayCopNames: true
   NewCops: enable
   StyleGuideCopsOnly: false

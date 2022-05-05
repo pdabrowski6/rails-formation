@@ -17,6 +17,43 @@ RSpec.describe RailsFormation do
         .with('sampleapp')
     end
 
+    context 'controllers' do
+      let(:config) do
+        {
+          'app_name' => 'sampleapp',
+          'installation_command' => 'rails _7.0.2.3_ new sampleapp -d=postgresql',
+          'controllers' => [
+            {
+              'class_name' => 'UsersController',
+              'file_name' => 'users_controller.rb',
+              'actions' => [
+                { 'action' => 'enable', 'access' => 'public' },
+                { 'action' => 'disable', 'access' => 'public' },
+                { 'action' => 'approve', 'access' => 'public' },
+                { 'action' => 'index', 'access' => 'public' },
+                { 'action' => 'show', 'access' => 'public' }
+              ]
+            }
+          ]
+        }
+      end
+
+      it 'creates controller file' do
+        controller_path = File.join(Dir.pwd, 'app', 'controllers', 'users_controller.rb')
+        controller = instance_double(RailsFormation::Formatters::Controller, invoke_all: double)
+
+        expect(RailsFormation::Formatters::Controller)
+          .to receive(:new)
+          .with([config['controllers'].first, controller_path])
+          .and_return(controller)
+        expect(controller)
+          .to receive(:invoke_all)
+          .once
+
+        described_class.apply(config)
+      end
+    end
+
     context 'routes' do
       let(:config) do
         {
