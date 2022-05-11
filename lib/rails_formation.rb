@@ -1,13 +1,6 @@
 # frozen_string_literal: true
 
-require 'thor'
-require 'rails-formation/formatters/migration'
-require 'rails-formation/formatters/rubygem'
-require 'rails-formation/formatters/model'
-require 'rails-formation/formatters/factory'
-require 'rails-formation/formatters/seed'
-require 'rails-formation/formatters/route'
-require 'rails-formation/formatters/controller'
+require 'fileutils'
 require 'rails-formation/cli/file_adapter'
 require 'rails-formation/cli/api_adapter'
 require 'rails-formation/cli/processor'
@@ -20,13 +13,11 @@ module RailsFormation
     def apply(template)
       verify_rails_installation
       generate_project(template)
-      bundle_and_install_gems(template.fetch('rubygems', []))
-      create_and_run_migrations(template.fetch('migrations', []))
-      create_factories(template.fetch('factories', []))
-      create_and_build_models(template.fetch('models', []))
-      insert_seeds(template.fetch('seeds', []))
-      create_routes(template.fetch('routes', []))
-      create_controllers(template.fetch('controllers', []))
+      generate_files(template.fetch('files', []))
+
+      template.fetch('commands', []).each do |project_command|
+        system(project_command)
+      end
     end
 
     private
@@ -43,77 +34,17 @@ module RailsFormation
       Dir.chdir(template['app_name'])
     end
 
-    def bundle_and_install_gems(rubygems)
-      return if rubygems.size.zero?
-
-      gemfile_path = File.join(Dir.pwd, 'Gemfile')
-
-      rubygems.each do |config|
-        ::RailsFormation::Formatters::Rubygem.new([config, gemfile_path]).invoke_all
+    def generate_files(files)
+      files.each do |section|
+        section_name = section.keys.first
+        puts "\e[0;39;44m#{section_name}\e[0m"
+        section[section_name].each do |config|
+          puts "  -> \e[1;32;49mCreate\e[0m #{config['file_path']}"
+          file_path = File.join(Dir.pwd, config['file_path'])
+          FileUtils.mkdir_p(File.dirname(file_path))
+          File.write(file_path, config['code'])
+        end
       end
-
-      system 'bundle install'
-
-      rubygems.each do |config|
-        config.fetch('install_commands', []).map { |command| system(command) }
-      end
-    end
-
-    def create_and_run_migrations(migrations)
-      return if migrations.size.zero?
-
-      migrations.each do |config|
-        table_name = config.fetch('table')
-        migration_name = "#{Time.now.strftime('%Y%m%d%H%M%S')}_create_#{table_name}.rb"
-        migration_path = File.join(Dir.pwd, 'db', 'migrate', migration_name)
-        ::RailsFormation::Formatters::Migration.new([config, migration_path]).invoke_all
-        sleep(1)
-      end
-
-      system('./bin/rails db:create')
-      system('./bin/rails db:migrate')
-    end
-
-    def create_factories(factories)
-      factories.each do |config|
-        factory_name = "#{config.fetch('name')}.rb"
-        factory_path = File.join(Dir.pwd, 'spec', 'factories', factory_name)
-        ::RailsFormation::Formatters::Factory.new([config, factory_path]).invoke_all
-      end
-    end
-
-    def create_controllers(controllers)
-      controllers.each do |config|
-        controller_path = File.join(Dir.pwd, 'app', 'controllers', config['file_name'])
-
-        ::RailsFormation::Formatters::Controller.new([config, controller_path]).invoke_all
-      end
-    end
-
-    def create_and_build_models(models)
-      models.each do |config|
-        model_name = "#{config.fetch('file_name').downcase}.rb"
-        model_path = File.join(Dir.pwd, 'app', 'models', model_name)
-
-        ::RailsFormation::Formatters::Model.new([config, model_path]).invoke_all
-      end
-    end
-
-    def insert_seeds(seeds)
-      return if seeds.size.zero?
-
-      seeds_path = File.join(Dir.pwd, 'db', 'seeds.rb')
-
-      ::RailsFormation::Formatters::Seed.new([seeds, seeds_path]).invoke_all
-
-      system('./bin/rails db:seed')
-    end
-
-    def create_routes(routes)
-      return if routes.size.zero?
-
-      routes_path = File.join(Dir.pwd, 'config', 'routes.rb')
-      ::RailsFormation::Formatters::Route.new([routes, routes_path]).invoke_all
     end
   end
 end
